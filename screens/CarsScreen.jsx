@@ -6,17 +6,17 @@ import { TableComponentCar, TableRowComponentCar } from '../assets/components/Ta
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const Cars = ({route, navigation}) =>{
-  const { nameUser } = route.params
-  console.log(route,'--------> vane');
+  const { nameUser, dataFormCar } = route.params
+  const textInit = nameUser ? `Bienvenid@ ${nameUser}, Estos son nuestros vehiculos.` : 'Nuestros vehiculos.'
   return (
     <View style={styles.container}>   
 
       <Banner></Banner>        
       <View style={[ styles.container, styles.views, {flex: 1}]}>
-        <Text style={{fontWeight:'bold', marginBottom:10}}>Bienvenid@ {nameUser}, Estos son nuestros vehiculos. </Text>
+        <Text style={{fontWeight:'bold', marginBottom:10}}>{textInit} </Text>
       </View>
       <View style={{ width: 300, flex: 10 }}>
-        <TableComponentCar></TableComponentCar>
+        <TableComponentCar car={dataFormCar}></TableComponentCar>
         <TableRowComponentCar></TableRowComponentCar>
       </View>
       <Button 
@@ -24,7 +24,7 @@ const Cars = ({route, navigation}) =>{
         icon={() => <MaterialCommunityIcons name="car-2-plus" size={24} color="white" />}
         mode="contained"    
         onPress={()=>{
-          navigation.navigate('Home')
+          navigation.navigate('CarsRegistar')
         }}>  
         Registrar vehiculo.
       </Button>

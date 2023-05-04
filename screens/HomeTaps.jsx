@@ -27,7 +27,7 @@ function HomeTabs() {
         tabBarStyle: {display: 'none'}
       }} />
       <Tab.Screen name="Cars" component={Cars} options={{ tabBarIcon: ()=>(<AntDesign name='car' size={25}/>) }}/>
-      <Tab.Screen name="CarsRegistar" component={RegisterCarScreen} />
+      <Tab.Screen name="CarsRegistar" component={RegisterCarScreen} options={{tabBarStyle: {display: 'none'}}} />
       {/* <Tab.Screen name="Contacts" component={Contacts} options={{ tabBarIcon: ()=>(<MaterialIcons name='contacts' size={25}/>) }}/> */}
     </Tab.Navigator>
   );

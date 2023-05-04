@@ -33,7 +33,7 @@ const HomeScreen = ({navigation}) =>{
     const nameUser = userLogin.name
     if (userLogin){
       console.log(nameUser);
-      navigation.navigate('Cars', { nameUser })
+      navigation.navigate('Cars', { nameUser, dataFormCar:{} })
     }else{
       setErrorUser('El usuario y/o la contraseña son erroneas')
     }

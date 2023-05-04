@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { DataTable } from 'react-native-paper';
 
-let vehiculos = [
-  {placa: 'BBA-123', marca: 'Mazda', estado: 'Disponible'},
-  {placa: 'RBA-475', marca: 'Mazda', estado: 'No Disponible'},
-  {placa: 'VAT-123', marca: 'Chevete', estado: 'Disponible'},
-]
 
 const TableComponentCar = () =>{
   return (
@@ -19,7 +14,19 @@ const TableComponentCar = () =>{
   )
 };
 
-const TableRowComponentCar = () => {
+const TableRowComponentCar = (car) => {
+
+  let vehiculos = [
+    {placa: 'BBA-123', marca: 'Mazda', estado: 'Disponible'},
+    {placa: 'RBA-475', marca: 'Mazda', estado: 'No Disponible'},
+    {placa: 'VAT-123', marca: 'Chevete', estado: 'Disponible'},
+  ]
+
+  if(car){
+    console.log(car, 'vaneeee');
+    //vehiculos.push(car)
+  }
+
   return(
     <DataTable>
       {vehiculos.map((car)=>(
@@ -36,5 +43,4 @@ const TableRowComponentCar = () => {
 export {
   TableComponentCar,
   TableRowComponentCar,
-  vehiculos
 };
