@@ -2,12 +2,13 @@ import { Text, View } from 'react-native';
 import { styles } from '../assets/styles/style'
 import { Button, TextInput } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
+import { useState } from 'react';
 import { users  } from './HomeScreen'
 const dbUsers = users
 
 const UserFormScreen = ({ navigation }) => {
 
-
+  const [errorUser, setErrorUser] = useState('')
 
   const { control, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
@@ -20,8 +21,10 @@ const UserFormScreen = ({ navigation }) => {
   const onSubmit = (dataForm) => {
     const {username}=dataForm
     const userRegister = dbUsers.find(user => user.username === username)
+
     if (userRegister){
-      setErrorUser('El usuario ya existe, ingrese otro')
+      console.log('existe');
+      setErrorUser('El usuario ya existe, ingrese otro')      
     }else{
       navigation.navigate('Home', { dataForm })
       reset()
@@ -32,7 +35,7 @@ const UserFormScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>Formulario de registro para Usuarios</Text>
-      <View>
+      <View style={{width:280, justifyContent:'space-around'}}>
         <View style={styles.viewContainerRows}>
           <Text style={styles.textform}>Username</Text>
           <Controller
@@ -124,7 +127,7 @@ const UserFormScreen = ({ navigation }) => {
         </View>
       </View>
 
-
+      <Text style={{fontWeight:'bold', marginBottom:10, color:'red'}}>{errorUser}</Text>
       <View>
         <Button
           style={styles.bottonadd}

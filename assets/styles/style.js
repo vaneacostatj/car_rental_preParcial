@@ -21,18 +21,11 @@ const styles = StyleSheet.create({
   
   textFormInput:{
     flex: 2,
-    fontSize: 12, 
+    fontSize: 14, 
     width: 100,
     marginTop:10, 
     alignItems: 'right',
     //backgroundColor: 'red'
-  },
-
-  modalPickerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
   },
 
   viewContainerRows:{

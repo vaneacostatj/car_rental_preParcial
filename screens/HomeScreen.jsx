@@ -14,16 +14,17 @@ let users =[
   }
 ]
 
-const HomeScreen = ({route}) =>{
+const HomeScreen = ({route={}, navigation}) =>{
   //navigation nos permite movernos entre ventanas
   const {dataForm} = route.params
+  const {errorUser, setErrorUser} = useState('')
 
   if (Object.keys(dataForm).length === 0) {
     console.log('El objeto está vacío');
   } else {
     users.push(dataForm)
   }
-
+  console.log(dataForm, 'llego');
   const {control, handleSubmit, formState: { errors }, reset} = useForm({
     defaultValues: {
       username: '',
@@ -41,8 +42,12 @@ const HomeScreen = ({route}) =>{
       reset()
     }else{
       setErrorUser('El usuario y/o la contraseña son erroneas')
-    }
-    
+    }    
+  }
+
+  const onSubmitRegister = ()=>{
+    navigation.navigate('UserRegister')
+    reset()   
   }
 
   return (
@@ -101,9 +106,14 @@ const HomeScreen = ({route}) =>{
       
 
       <Text style={{fontWeight:'bold', marginBottom:10, color:'red'}}>{errorUser}</Text>
-      <Button icon="account" mode="contained" onPress={handleSubmit(onSubmit)}>
-        Entrar
-      </Button>
+        <View style={[styles.viewContainerRows, {width:280, justifyContent:'space-around'}]}>
+          <Button icon="account" mode="contained" onPress={onSubmitRegister}>
+            Registrarse
+          </Button>
+          <Button style={styles.bottonadd}  icon="account" mode="contained" onPress={handleSubmit(onSubmit)}>
+            Entrar
+          </Button>
+        </View>
 
     </View>
   )
