@@ -5,8 +5,21 @@ import { Button, TextInput } from 'react-native-paper';
 import { TableComponentCar, TableRowComponentCar } from '../assets/components/TableComponent'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
+let vehiculos = [
+  {placa: 'BBA-123', marca: 'Mazda', estado: 'Disponible'},
+  {placa: 'RBA-475', marca: 'Mazda', estado: 'No Disponible'},
+  // {placa: 'VAT-123', marca: 'Chevete', estado: 'Disponible'},
+]
+
 const Cars = ({route, navigation}) =>{
   const { nameUser, dataFormCar } = route.params
+
+  if (Object.keys(dataFormCar).length === 0) {
+    console.log('El objeto está vacío');
+  } else {
+    vehiculos.push(dataFormCar)
+  }
+
   const textInit = nameUser ? `Bienvenid@ ${nameUser}, Estos son nuestros vehiculos.` : 'Nuestros vehiculos.'
   return (
     <View style={styles.container}>   
@@ -16,8 +29,8 @@ const Cars = ({route, navigation}) =>{
         <Text style={{fontWeight:'bold', marginBottom:10}}>{textInit} </Text>
       </View>
       <View style={{ width: 300, flex: 10 }}>
-        <TableComponentCar car={dataFormCar}></TableComponentCar>
-        <TableRowComponentCar></TableRowComponentCar>
+        <TableComponentCar></TableComponentCar>
+        <TableRowComponentCar data = {vehiculos} ></TableRowComponentCar>
       </View>
       <Button 
         style={styles.bottonadd}
@@ -35,3 +48,4 @@ const Cars = ({route, navigation}) =>{
 export{
   Cars
 }
+

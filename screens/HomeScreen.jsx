@@ -14,13 +14,17 @@ let users =[
   }
 ]
 
-const HomeScreen = ({navigation}) =>{
+const HomeScreen = ({route}) =>{
   //navigation nos permite movernos entre ventanas
-  const [errorUser, setErrorUser] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const {dataForm} = route.params
 
-  const {control, handleSubmit, formState: { errors }} = useForm({
+  if (Object.keys(dataForm).length === 0) {
+    console.log('El objeto está vacío');
+  } else {
+    users.push(dataForm)
+  }
+
+  const {control, handleSubmit, formState: { errors }, reset} = useForm({
     defaultValues: {
       username: '',
       password: '',
@@ -34,6 +38,7 @@ const HomeScreen = ({navigation}) =>{
     if (userLogin){
       console.log(nameUser);
       navigation.navigate('Cars', { nameUser, dataFormCar:{} })
+      reset()
     }else{
       setErrorUser('El usuario y/o la contraseña son erroneas')
     }
@@ -105,5 +110,6 @@ const HomeScreen = ({navigation}) =>{
 }
 
 export {
-  HomeScreen
+  HomeScreen,
+  users
 }

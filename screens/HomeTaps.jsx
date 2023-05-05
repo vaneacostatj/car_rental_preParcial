@@ -5,6 +5,7 @@ import {MaterialIcons, AntDesign } from '@expo/vector-icons' // importar iconos
 import { HomeScreen } from './HomeScreen';
 import { Cars } from './CarsScreen'
 import { RegisterCarScreen } from './RegisterCarScreen'
+import {UserFormScreen} from './UserFormScreen'
 
 
 const Tab = createBottomTabNavigator();
@@ -13,7 +14,7 @@ function HomeTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName='CarsRegistar'
+      initialRouteName='UserRgister'
       screenOptions={{
         headerShown: false, // quita el titulo de la ruta donde esta parado
         tabBarActiveTintColor:'black', 
@@ -28,7 +29,7 @@ function HomeTabs() {
       }} />
       <Tab.Screen name="Cars" component={Cars} options={{ tabBarIcon: ()=>(<AntDesign name='car' size={25}/>) }}/>
       <Tab.Screen name="CarsRegistar" component={RegisterCarScreen} options={{tabBarStyle: {display: 'none'}}} />
-      {/* <Tab.Screen name="Contacts" component={Contacts} options={{ tabBarIcon: ()=>(<MaterialIcons name='contacts' size={25}/>) }}/> */}
+      <Tab.Screen name="UserRgister" component={UserFormScreen} options={{ tabBarIcon: ()=>(<MaterialIcons name='contacts' size={25}/>) }}/>
     </Tab.Navigator>
   );
 }

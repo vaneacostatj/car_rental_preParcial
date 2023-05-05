@@ -2,10 +2,11 @@ import { Text, View } from 'react-native';
 import { styles } from '../assets/styles/style'
 import { Button, TextInput } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
+import { AntDesign } from '@expo/vector-icons'
 
 const RegisterCarScreen = ({navigation}) =>{
 
-  const {control, handleSubmit, formState: { errors }} = useForm({
+  const {control, handleSubmit, formState: { errors }, reset} = useForm({
     defaultValues: {
       placa: '', 
       marca: '', 
@@ -16,7 +17,8 @@ const RegisterCarScreen = ({navigation}) =>{
 
   const onSubmit = (dataFormCar)=>{ 
     console.log(dataFormCar);
-    navigation.navigate('Cars',{dataFormCar})    
+    navigation.navigate('Cars',{dataFormCar})   
+    reset() 
   }
 
   return (
@@ -49,10 +51,10 @@ const RegisterCarScreen = ({navigation}) =>{
             />
         </View>
         <View>
-          {errors.placa?.type == 'required' && <Text style={{color: 'red'}}>El placa es obligatorio </Text>}
-          {errors.placa?.type == 'maxLength' && <Text style={{color: 'red'}}>El placa es de maximo 30 chars </Text>}
-          {errors.placa?.type == 'minLength' && <Text style={{color: 'red'}}>El placa es de minimo 12 chars </Text>}
-          {errors.placa?.type == 'pattern' && <Text style={{color: 'red'}}> prueba </Text>}
+          {errors.placa?.type == 'required' && <Text style={{color: 'red'}}>La placa es obligatorio </Text>}
+          {errors.placa?.type == 'maxLength' && <Text style={{color: 'red'}}>La placa es de maximo 7 chars </Text>}
+          {errors.placa?.type == 'minLength' && <Text style={{color: 'red'}}>La placa es de minimo 6 chars </Text>}
+          {errors.placa?.type == 'pattern' && <Text style={{color: 'red'}}> EL campo solo debe tener letras y números </Text>}
         </View>
 
         <View style={styles.viewContainerRows}>
@@ -79,9 +81,9 @@ const RegisterCarScreen = ({navigation}) =>{
               />
         </View>
         <View>
-          {errors.marca?.type == 'required' && <Text style={{color: 'red'}}>El marca es obligatorio </Text>}
-          {errors.marca?.type == 'maxLength' && <Text style={{color: 'red'}}>El marca es de maximo 30 chars </Text>}
-          {errors.marca?.type == 'minLength' && <Text style={{color: 'red'}}>El marca es de minimo 12 chars </Text>}
+          {errors.marca?.type == 'required' && <Text style={{color: 'red'}}>La marca es obligatorio </Text>}
+          {errors.marca?.type == 'maxLength' && <Text style={{color: 'red'}}>La marca es de maximo 30 chars </Text>}
+          {errors.marca?.type == 'minLength' && <Text style={{color: 'red'}}>La marca es de minimo 3 chars </Text>}
           {/* {errors.marca?.type == 'pattern' && <Text style={{color: 'red'}}> prueba </Text>} */}
         </View>
 
@@ -91,13 +93,13 @@ const RegisterCarScreen = ({navigation}) =>{
                 control={control}
                 rules={{
                 required: true,
-                maxLength:7,
+                maxLength:8,
                 minLength:6,
                 pattern:  /^[a-zA-Z]+$/
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    label='Ingrese estado'
+                    label='Ingrese Activo o Inactivo'
                     mode='outlined'
                     style={styles.textFormInput}
                     onBlur={onBlur}
@@ -110,9 +112,9 @@ const RegisterCarScreen = ({navigation}) =>{
         </View>
         <View>
           {errors.estado?.type == 'required' && <Text style={{color: 'red'}}>El estado es obligatorio </Text>}
-          {errors.estado?.type == 'maxLength' && <Text style={{color: 'red'}}>El estado es de maximo 30 chars </Text>}
-          {errors.estado?.type == 'minLength' && <Text style={{color: 'red'}}>El estado es de minimo 12 chars </Text>}
-          {errors.estado?.type == 'pattern' && <Text style={{color: 'red'}}> prueba </Text>}
+          {errors.estado?.type == 'maxLength' && <Text style={{color: 'red'}}>El estado es de maximo 8 chars </Text>}
+          {errors.estado?.type == 'minLength' && <Text style={{color: 'red'}}>El estado es de minimo 6 chars </Text>}
+          {errors.estado?.type == 'pattern' && <Text style={{color: 'red'}}> EL campo solo debe tener letras </Text>}
         </View>
 
         <View style={styles.viewContainerRows}>
@@ -141,13 +143,13 @@ const RegisterCarScreen = ({navigation}) =>{
         <View>
           {errors.usuario?.type == 'required' && <Text style={{color: 'red'}}>El usuario es obligatorio </Text>}
           {errors.usuario?.type == 'maxLength' && <Text style={{color: 'red'}}>El usuario es de maximo 30 chars </Text>}
-          {errors.usuario?.type == 'minLength' && <Text style={{color: 'red'}}>El usuario es de minimo 12 chars </Text>}
-          {errors.usuario?.type == 'pattern' && <Text style={{color: 'red'}}> prueba </Text>}
+          {errors.usuario?.type == 'minLength' && <Text style={{color: 'red'}}>El usuario es de minimo 3 chars </Text>}
+          {errors.usuario?.type == 'pattern' && <Text style={{color: 'red'}}> EL campo solo debe tener letras </Text>}
         </View>
       </View>
       <View>
-          <Button style={styles.bottonadd} icon="account" mode="contained" onPress={handleSubmit(onSubmit)}>
-            Entrar
+          <Button style={styles.bottonadd} icon={() => <AntDesign name='car' size={25}/>} mode="contained" onPress={handleSubmit(onSubmit)}>
+            Registrarlo
           </Button>
         </View>
     </View>

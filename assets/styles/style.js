@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     textAlign: 'right', 
     marginTop:15, 
     marginRight: 10,
-    textAlign: 'left'
+    textAlign: 'left', 
     //backgroundColor:'blue'
   },
   
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 12, 
     width: 100,
     marginTop:10, 
+    alignItems: 'right',
     //backgroundColor: 'red'
   },
 

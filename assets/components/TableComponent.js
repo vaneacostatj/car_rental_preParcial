@@ -14,18 +14,9 @@ const TableComponentCar = () =>{
   )
 };
 
-const TableRowComponentCar = (car) => {
+const TableRowComponentCar = (props) => {
 
-  let vehiculos = [
-    {placa: 'BBA-123', marca: 'Mazda', estado: 'Disponible'},
-    {placa: 'RBA-475', marca: 'Mazda', estado: 'No Disponible'},
-    {placa: 'VAT-123', marca: 'Chevete', estado: 'Disponible'},
-  ]
-
-  if(car){
-    console.log(car, 'vaneeee');
-    //vehiculos.push(car)
-  }
+  const vehiculos = props.data
 
   return(
     <DataTable>
