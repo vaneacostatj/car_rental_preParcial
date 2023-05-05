@@ -4,6 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { users  } from './HomeScreen'
+import {HomeScreen} from './HomeScreen'
 const dbUsers = users
 
 const UserFormScreen = ({ navigation }) => {
@@ -29,7 +30,11 @@ const UserFormScreen = ({ navigation }) => {
       navigation.navigate('Home', { dataForm })
       reset()
     }
+  }
 
+  const onSubmitInicio = ()=>{
+    navigation.navigate('Home')
+    reset()   
   }
 
   return (
@@ -136,6 +141,10 @@ const UserFormScreen = ({ navigation }) => {
           onPress={handleSubmit(onSubmit)}
         >
           Registrarse
+        </Button>
+
+        <Button icon="account" mode="contained" onPress={onSubmitInicio}>
+          Volver atras
         </Button>
       </View>
 
