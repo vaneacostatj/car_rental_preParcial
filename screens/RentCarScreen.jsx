@@ -4,37 +4,47 @@ import { Button, TextInput } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import { AntDesign } from '@expo/vector-icons';
 import { vehiculos } from './CarsScreen'
+import { users  } from './HomeScreen'
 import { useState } from 'react';
 
-
+const dbUsers = users
 const dbCars = vehiculos
 
-const RegisterCarScreen = ({navigation}) =>{
-
+const RentCarScreen = ({navigation}) =>{
   const [errorUser, setErrorUser] = useState('')
+  
   const {control, handleSubmit, formState: { errors }, reset} = useForm({
     defaultValues: {
       placa: '', 
       marca: '', 
-      estado: 'Disponible',
+      estado: 'No Disponible',
+      username:''
     }
   })
 
-  const onSubmit = (dataFormCar)=>{ 
-    const carData = dbCars.find(car => car.placa === dataFormCar.placa)
+  const onSubmit = (dataRentCar)=>{ 
+    const { estado, placa, username} = dataRentCar
+    const userData = dbUsers.find(user => user.username === username)
+    const carData = dbCars.find(car => car.placa === placa)
  
-    if(carData){
-      setErrorUser('El vehiculo ya existe') 
-    }else{
-      //console.log(dataFormCar);
-      navigation.navigate('Cars',{dataFormCar})   
+    if(userData && carData && carData.estado === 'Disponible'){
+      navigation.navigate('Cars',{dataFormCar:{
+        placa, 
+        marca: carData.marca, 
+        estado,
+      }})   
       reset() 
+    }else{ 
+      !userData ? setErrorUser('El usuario no existe') :
+       !carData ? setErrorUser('El vehiculo no existe') :
+        carData.estado !== 'Disponible' ? setErrorUser('El vehiculo no esta disponible') : 
+        setErrorUser('Error inesperado')
     }
   }
 
   return (
     <View  style={styles.container}>
-      <Text style={{fontWeight:'bold', marginBottom:10}}>Formulario de registro de vehiculos</Text>
+      <Text style={{fontWeight:'bold', marginBottom:10}}>Formulario de solicitud de renta</Text>
 
 
       <View>
@@ -69,18 +79,18 @@ const RegisterCarScreen = ({navigation}) =>{
         </View>
 
         <View style={styles.viewContainerRows}>
-            <Text style={styles.textform}>Marca del vehiculo</Text>
+            <Text style={styles.textform}>Usuario del arrendatario</Text>
             <Controller
                 control={control}
                 rules={{
                 required: true,
                 maxLength:30,
                 minLength:3,
-                //pattern: /^[a-zA-Z0-9]+$/
+                pattern:  /^[a-zA-Z0-9]+$/
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    label='Ingrese marca'
+                    label='Ingrese propietario'
                     mode='outlined'
                     style={styles.textFormInput}
                     onBlur={onBlur}
@@ -88,21 +98,20 @@ const RegisterCarScreen = ({navigation}) =>{
                     value={value}
                   />
                 )}
-                name="marca"
+                name="username"
               />
         </View>
         <View>
-          {errors.marca?.type == 'required' && <Text style={{color: 'red'}}>La marca es obligatorio </Text>}
-          {errors.marca?.type == 'maxLength' && <Text style={{color: 'red'}}>La marca es de maximo 30 chars </Text>}
-          {errors.marca?.type == 'minLength' && <Text style={{color: 'red'}}>La marca es de minimo 3 chars </Text>}
-          {/* {errors.marca?.type == 'pattern' && <Text style={{color: 'red'}}> prueba </Text>} */}
+          {errors.username?.type == 'required' && <Text style={{color: 'red'}}>El usuario es obligatorio </Text>}
+          {errors.username?.type == 'maxLength' && <Text style={{color: 'red'}}>El usuario es de maximo 30 chars </Text>}
+          {errors.username?.type == 'minLength' && <Text style={{color: 'red'}}>El usuario es de minimo 3 chars </Text>}
+          {errors.username?.type == 'pattern' && <Text style={{color: 'red'}}> EL campo solo debe tener letras y números </Text>}
         </View>
-
       </View>
       <Text style={{fontWeight:'bold', marginBottom:10, color:'red'}}>{errorUser}</Text>
       <View>
           <Button style={styles.bottonadd} icon={() => <AntDesign name='car' size={25}/>} mode="contained" onPress={handleSubmit(onSubmit)}>
-            Registrarlo
+            Reservarlo
           </Button>
         </View>
     </View>
@@ -110,5 +119,5 @@ const RegisterCarScreen = ({navigation}) =>{
 }
 
 export{
-  RegisterCarScreen
+  RentCarScreen
 }

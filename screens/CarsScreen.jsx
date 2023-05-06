@@ -6,8 +6,8 @@ import { TableComponentCar, TableRowComponentCar } from '../assets/components/Ta
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 let vehiculos = [
-  {placa: 'BBA-123', marca: 'Mazda', estado: 'Disponible'},
-  {placa: 'RBA-475', marca: 'Mazda', estado: 'No Disponible'},
+  {placa: 'BBA123', marca: 'Mazda', estado: 'No Disponible'},
+  {placa: 'RBA475', marca: 'Mazda', estado: 'Disponible'},
   // {placa: 'VAT-123', marca: 'Chevete', estado: 'Disponible'},
 ]
 
@@ -15,9 +15,16 @@ const Cars = ({route, navigation}) =>{
   const { nameUser, dataFormCar } = route.params
 
   if (Object.keys(dataFormCar).length === 0) {
-    console.log('El objeto está vacío');
   } else {
-    vehiculos.push(dataFormCar)
+    const indice = vehiculos.findIndex(car => car.placa === dataFormCar.placa);
+    console.log(indice,'mierdaaaaaaa');
+    if (indice > 0){
+      console.log(indice,'mk');
+      vehiculos[indice].estado = dataFormCar.estado 
+    }else{
+      console.log(indice,'puta');
+      vehiculos.push(dataFormCar)
+    }
   }
 
   const textInit = nameUser ? `Bienvenid@ ${nameUser}, Estos son nuestros vehiculos.` : 'Nuestros vehiculos.'
@@ -32,20 +39,29 @@ const Cars = ({route, navigation}) =>{
         <TableComponentCar></TableComponentCar>
         <TableRowComponentCar data = {vehiculos} ></TableRowComponentCar>
       </View>
-      <Button 
-        style={styles.bottonadd}
-        icon={() => <MaterialCommunityIcons name="car-2-plus" size={24} color="white" />}
-        mode="contained"    
-        onPress={()=>{
-          navigation.navigate('CarsRegistar')
-        }}>  
-        Registrar vehiculo.
-      </Button>
+
+      <View style={[styles.viewContainerRows, {width:350, justifyContent:'space-around' }]}>
+          <Button 
+            style={[styles.bottonadd, {backgroundColor:'#0A39D7'}]}
+            icon={() => <MaterialCommunityIcons name="car-2-plus" size={24} color="white" />}
+            mode="contained"    
+            onPress={()=>{
+              navigation.navigate('CarsRegistar')
+            }}>  
+            Registrar vehiculo.
+          </Button>
+          <Button style={styles.bottonadd}  icon="account" mode="contained" onPress={()=>{navigation.navigate('RentCar')}}>
+            Alquilar
+          </Button>
+        </View>
+
     </View>
+    
   )
 }
 
 export{
-  Cars
+  Cars,
+  vehiculos
 }
 

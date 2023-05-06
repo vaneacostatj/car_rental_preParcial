@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { users  } from './HomeScreen'
-import {HomeScreen} from './HomeScreen'
+import { Ionicons } from '@expo/vector-icons';
 const dbUsers = users
 
 const UserFormScreen = ({ navigation }) => {
@@ -143,7 +143,7 @@ const UserFormScreen = ({ navigation }) => {
           Registrarse
         </Button>
 
-        <Button icon="account" mode="contained" onPress={onSubmitInicio}>
+        <Button icon={()=><Ionicons name="logo-octocat" size={24} color="black" />} mode="contained" onPress={onSubmitInicio}>
           Volver atras
         </Button>
       </View>

@@ -3,6 +3,7 @@ import { styles } from '../assets/styles/style'
 import { TextInput, Button } from 'react-native-paper'
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 
 let users =[
@@ -17,14 +18,12 @@ let users =[
 const HomeScreen = ({route={}, navigation}) =>{
   //navigation nos permite movernos entre ventanas
   const {dataForm} = route.params
-  const {errorUser, setErrorUser} = useState('')
-
-  if (Object.keys(dataForm).length === 0) {
-    console.log('El objeto está vacío');
-  } else {
+  const [errorUser, setErrorUser] = useState('')
+console.log(dataForm.name,'jam');
+  if (dataForm.name) {
     users.push(dataForm)
-  }
-  console.log(dataForm, 'llego');
+  } 
+
   const {control, handleSubmit, formState: { errors }, reset} = useForm({
     defaultValues: {
       username: '',
@@ -32,11 +31,11 @@ const HomeScreen = ({route={}, navigation}) =>{
     }
   })
 
-  const onSubmit = (dataForm)=>{
-    const {username, password} = dataForm   
-    const userLogin = users.find(user => user.username === username && user.password === password)
-    const nameUser = userLogin.name
+  const onSubmit = (dataForm)=>{ 
+    const userLogin = users.find(user => user.username === dataForm.username && user.password === dataForm.password)
+ 
     if (userLogin){
+      const nameUser = userLogin.name
       console.log(nameUser);
       navigation.navigate('Cars', { nameUser, dataFormCar:{} })
       reset()
@@ -59,7 +58,7 @@ const HomeScreen = ({route={}, navigation}) =>{
         rules={{
          required: true,
          maxLength:15,
-         minLength:5,
+         minLength:4,
          pattern: /^[A-Za-z0-9]+$/g
         }}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -110,7 +109,7 @@ const HomeScreen = ({route={}, navigation}) =>{
           <Button icon="account" mode="contained" onPress={onSubmitRegister}>
             Registrarse
           </Button>
-          <Button style={styles.bottonadd}  icon="account" mode="contained" onPress={handleSubmit(onSubmit)}>
+          <Button style={styles.bottonadd}  icon={()=><Ionicons name="logo-octocat" size={24} color="black" />} mode="contained" onPress={handleSubmit(onSubmit)}>
             Entrar
           </Button>
         </View>

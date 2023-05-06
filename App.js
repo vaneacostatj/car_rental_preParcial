@@ -16,6 +16,7 @@ export default function App() {
           component={HomeTabs}
          options={{title:'Renta de Carros'}}
         />
+        
 
       </Stack.Navigator>
     </NavigationContainer>
